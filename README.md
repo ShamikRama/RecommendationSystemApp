@@ -15,17 +15,17 @@ Microservice Recomendations for users
 
 // Cart представляет корзину пользователя
 ## type Cart struct {
-###	UserID     string        // Идентификатор пользователя
+	UserID     string        // Идентификатор пользователя
 	Items      []CartItem    // Список продуктов в корзине
 	TotalPrice float64       // Общая стоимость корзины
 	CreatedAt  time.Time     // Дата и время создания корзины
 	UpdatedAt  time.Time     // Дата и время последнего обновления корзины
-## }
+ }
 
 // Объект корзины, то есть сам продукт
 ## type CartItem struct {
-###	ProductID   string      // Идентификатор продукта
+	ProductID   string      // Идентификатор продукта
 	ProductName string      // Название продукта
 	Quantity    int         // Количество продукта
 	Price       float64     // Цена продукта
-## }
+ }
