@@ -5,12 +5,12 @@ Microservice Recomendations for users
 создание юзера, обновление происходят в обычном режиме
 сервис юзеров и product service : структура юзера, структура корзины для пользователя, и структура обеъктов этой кор : 
 
-type User struct {
-  Username      string        // Логин пользователя
-  Password_hash string        // Пароль пользователя который будет хэшироваться
-  Email         string        // Электронная потча юзера
-  CreatedAt time.Time         // дата создания 
-	UpdatedAt time.Time         // дата обновления 
+ ## type User struct {
+  ### Username      string        // Логин пользователя
+  ### Password_hash string        // Пароль пользователя который будет хэшироваться
+  ### Email         string        // Электронная потча юзера
+  ### CreatedAt time.Time         // дата создания 
+  ### UpdatedAt time.Time         // дата обновления 
 }
 
 // Cart представляет корзину пользователя
