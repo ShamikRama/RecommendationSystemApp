@@ -1,0 +1,33 @@
+services:
+  db:
+    image: postgres:16
+    container_name: product_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: productdb
+    ports:
+      - "5439:5432"
+    networks:
+      - my_shared_network
+
+  app:
+    image: productservice:latest
+    container_name: productservice
+    depends_on:
+      - db
+    volumes:
+      - ./.env:/app/.env
+      - ./migrations:/app/migrations
+    environment:
+      CONFIG_PATH: /app/.env
+      KAFKA_BROKER: kafka:9092
+    ports:
+      - "8083:8083"
+    command: ["/bin/sh", "-c", "/usr/local/bin/wait-for-it db:5432 -- sleep 5 && ./productservice"]
+    networks:
+      - my_shared_network
+
+networks:
+  my_shared_network:
+    external: true

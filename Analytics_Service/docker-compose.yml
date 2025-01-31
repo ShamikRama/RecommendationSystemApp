@@ -1,0 +1,33 @@
+services:
+  db:
+    image: postgres:16
+    container_name: analitics_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: analdb
+    ports:
+      - "5441:5432"
+    networks:
+      - my_shared_network
+
+  app:
+    image: analservice:latest
+    container_name: analservice
+    depends_on:
+      - db
+    volumes:
+      - ./.env:/app/.env  # Монтируем .env файл
+      - ./migrations:/app/migrations  # Монтируем миграции
+    environment:
+      CONFIG_PATH: /app/.env
+      KAFKA_BROKER: kafka:9092
+    ports:
+      - "8085:8085"  # Порт для вашего сервиса
+    command: ["/bin/sh", "-c", "/usr/local/bin/wait-for-it db:5432 -- sleep 5 && ./analservice"]
+    networks:
+      - my_shared_network
+
+networks:
+  my_shared_network:
+    external: true
